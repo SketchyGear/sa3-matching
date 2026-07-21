@@ -263,14 +263,11 @@ void sub_805E5A0(Juggling *enemy)
     }
 }
 
-// (95.54%) https://decomp.me/scratch/c8QnG
-NONMATCH("asm/non_matching/game/enemies/juggling__sub_805E624.inc", void sub_805E624(Juggling *enemy))
-{
-    s32 var_r0;
+void sub_805E624(Juggling *enemy) {
     u8 i;
 
-    for (i = 0; i < 2; i++) {
-        if (enemy->unk6[i] == 0) {
+    for (i = 0; i < ARRAY_COUNT(enemy->unk28); i++) {
+        if (!enemy->unk6[i]) {
             enemy->unkE[i] += Q(0.5);
 
             if (enemy->unkE[i] > Q(16)) {
@@ -278,23 +275,19 @@ NONMATCH("asm/non_matching/game/enemies/juggling__sub_805E624.inc", void sub_805
             }
 
             if (enemy->unkE[i] > Q(8)) {
-                s32 *dst = &enemy->unk28[i].y;
-                var_r0 = (((SIN(((enemy->unkE[i] >> 0x4) & 0xFF) * 4)) >> 6) * 4) + 0x1200;
-                *dst = enemy->qPos.y - (var_r0);
+                enemy->unk28[i].y = enemy->posY - 0x1200 - ((SIN(((enemy->unkE[i] >> 4) & 0xFF) * 4) >> 6) * 4);
             } else {
-                s32 *dst = &enemy->unk28[i].y;
-                var_r0 = (((SIN(((enemy->unkE[i] >> 0x4) & 0xFF) * 4)) >> 6) * 16) + 0x2000;
-                *dst = enemy->qPos.y - (var_r0);
+                enemy->unk28[i].y = enemy->posY - 0x2000 - ((SIN(((enemy->unkE[i] >> 4) & 0xFF) * 4) >> 6) * 16);
             }
         }
-        if (i == 0) {
-            enemy->unk28[i].x = enemy->qPos.x + Q(8);
+
+        if (!i) {
+            enemy->unk28[i].x = enemy->posX + Q(8);
         } else {
-            enemy->unk28[i].x = enemy->qPos.x - Q(8);
+            enemy->unk28[i].x = enemy->posX - Q(8);
         }
     }
 }
-END_NONMATCH
 
 AnimCmdResult sub_805E6E0(Juggling *enemy)
 {
