@@ -275,16 +275,16 @@ void sub_805E624(Juggling *enemy) {
             }
 
             if (enemy->unkE[i] > Q(8)) {
-                enemy->unk28[i].y = enemy->posY - 0x1200 - ((SIN(((enemy->unkE[i] >> 4) & 0xFF) * 4) >> 6) * 4);
+                enemy->unk28[i].y = enemy->qPos.y - 0x1200 - ((SIN(((enemy->unkE[i] >> 4) & 0xFF) * 4) >> 6) * 4);
             } else {
-                enemy->unk28[i].y = enemy->posY - 0x2000 - ((SIN(((enemy->unkE[i] >> 4) & 0xFF) * 4) >> 6) * 16);
+                enemy->unk28[i].y = enemy->qPos.y - 0x2000 - ((SIN(((enemy->unkE[i] >> 4) & 0xFF) * 4) >> 6) * 16);
             }
         }
 
         if (!i) {
-            enemy->unk28[i].x = enemy->posX + Q(8);
+            enemy->unk28[i].x = enemy->qPos.x + Q(8);
         } else {
-            enemy->unk28[i].x = enemy->posX - Q(8);
+            enemy->unk28[i].x = enemy->qPos.x - Q(8);
         }
     }
 }
